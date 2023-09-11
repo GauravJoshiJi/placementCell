@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title><%= title %></title>
+    <style>
+      .scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(#111425, #3751e0);
+  overflow: hidden;
+  background-attachment: fixed;
+}
+.moon {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 1000;
+}
+.moon:after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#111425, #3751e0);
+  background-attachment: fixed;
+}
+.forest {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transform: scale(1.2);
+}
+.scene i {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: animate linear infinite;
+}
+@keyframes animate {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+}
+.cloud1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  max-width: 600px;
+  animation: animateCloud 80s linear infinite;
+}
+.cloud2 {
+  position: absolute;
+  top: 100px;
+  left: 500px;
+  z-index: 10000;
+  max-width: 500px;
+  animation: animateCloud 105s linear infinite;
+}
+.btnContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+@keyframes animateCloud {
+  0% {
+    transform: translateX(-100%) scale(1);
+  }
+  100% {
+    transform: translateX(400%) scale(1.5);
+  }
+}
+
+    </style>
+  </head>
+
+  <body>
+    <!-- PARTIAL FOR HEADER -->
+    <!-- animation code starts  -->
+    <div class="scene">
+      <div class="moon"></div>
+      
+   
+    <!-- animation code ends   -->
+    <%- include('_header') %>
+
+    <% if (locals.user) {%>
+      <div class="container mt-4 col-md-4">
+      <h4 style="
+      color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "><u>Add an interview</u> </h4>
+    
+      <form class="row g-3 mt-1 border border-dark rounded p-2" 
+       style="--bs-border-opacity: 0.5" action="/interview/create" method="POST">
+    
+        <div class="col-12">
+          <label for="company" class="form-label" style="
+          color: white;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">Company</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter company name"
+            id="company"
+            name="company"
+            required
+          />
+        </div>
+    
+        <div class="col-12">
+          <label for="date" class="form-label" style="
+          color: white;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        ">Date</label>
+          <input
+            type="date"
+            class="form-control"
+            placeholder="Enter student email"
+            id="date"
+            name="date"
+            required
+          />
+        </div>
+    
+            
+        <div class="btnContainer col-12">
+          <button type="submit" class="btn btn-primary">Add interview</button>
+        </div>
+    
+      </form>
+    </div>
+    </div>
+    
+    <%} %>
+    <!-- animation code starts   -->
+  </div>
+  <script type="text/javascript">
+    function stars() {
+      let count = 500;
+      let scene = document.querySelector(".scene");
+      let i = 0;
+      while (i < count) {
+        let star = document.createElement("i");
+        let x = Math.floor(Math.random() * window.innerWidth);
+        let y = Math.floor(Math.random() * window.innerHeight);
+
+        let duration = Math.random() * 10;
+        let size = Math.random() * 2;
+
+        star.style.left = x + "px";
+        star.style.top = y + "px";
+        star.style.width = 1 + size + "px";
+        star.style.height = 1 + size + "px";
+
+        star.style.animationDuration = 5 + duration + "s";
+        star.style.animationDelay = duration + "s";
+
+        scene.appendChild(star);
+        i++;
+      }
+    }
+    stars();
+  </script>
+    <!-- animation code ends   -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
